@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import Home from './Components/Home.js';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './AuthContext';
+import { getTaskList } from './utils/TaskServiceCalls.js';
+import { format } from 'date-fns';
 
 function App() {
+  const { setTasksListFun } = useContext(AuthContext);
+  
+  useEffect(() => {
+    getTasks()
+  }, []);
+  
+  const getTasks = async () => {
+    const task = await getTaskList();
+    task && task.forEach((task) => {
+      task.dueDate = format(new Date(task.dueDate), 'dd/MM/yyyy');
+    });
+    setTasksListFun(task);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Home />
     </div>
   );
 }
