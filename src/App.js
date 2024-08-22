@@ -7,7 +7,7 @@ import { getTaskList } from './utils/TaskServiceCalls.js';
 import { format } from 'date-fns';
 
 function App() {
-  const { setTasksListFun } = useContext(AuthContext);
+  const { setTasksListFun, setFilteredListFun } = useContext(AuthContext);
   
   useEffect(() => {
     getTasks()
@@ -19,6 +19,7 @@ function App() {
       task.dueDate = format(new Date(task.dueDate), 'dd/MM/yyyy');
     });
     setTasksListFun(task);
+    setFilteredListFun(task);
   }
 
   return (

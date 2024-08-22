@@ -1,29 +1,117 @@
 @import './colors.css';
 
-.actions{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+
+
+@import "./colors.css";
+.actions {
+    position: relative;
+    width: 100%;
     height: 10vh;
-    width: 100vw;
-    gap: 20px;
     margin-bottom: 5vh;
 }
 
-#editIcon, #addIcon{
-    width: 5%;
-    height: auto;
+/* Filter Container positioned at the left */
+.filterContainer {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-#editIcon:hover, #addIcon:hover{
-    cursor: pointer;
-}
-
-#searchTask{
-    height: 30%;
-    width: 25%;
+/* Search Task Input positioned at the center */
+#searchTaskInput {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; /* Adjust this width as needed */
     border-radius: 15px;
     border: 2px solid var(--blue-color);
     padding: 5px;
+}
+
+/* Add Icon positioned at the right */
+#addIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5vw;
+    height: auto;
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out; 
+
+}
+
+#addIcon:hover {
+    top: -100%;
+    cursor: pointer;
+    transform: scale(1.2); 
+}
+
+
+.filterButton {
+    background-color: var(--blue-color);
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.filterButton:hover {
+    background-color: white; /* Slightly darker shade on hover */
+    border: 1px solid var(--blue-color);
+    color: var(--blue-color);
+}
+
+.dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    border: 1px solid var(--blue-color);
+    border-radius: 5px;
+    margin-top: 5px;
+    z-index: 1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdownMenu button {
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    text-align: left;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-bottom: 1px solid var(--blue-color);
+}
+
+.dropdownMenu button:last-child {
+    border-bottom: none;
+}
+
+.dropdownMenu button:hover {
+    background-color: var(--light-blue-color);
+}
+
+.arrow.down {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.arrow {
+    color: initial; /* Set the initial color of the icon */
+    transition: color 0.3s ease; /* Optional: Add transition for smooth color change */
+}
+
+.arrow.down:hover {
+    color: var(--blue-color); /* Change the color on hover */
 }

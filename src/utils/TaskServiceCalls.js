@@ -39,7 +39,6 @@ export async function createTask(task) {
 
 export async function deleteTaskServer(task) {
     try {
-        console.log("task.id", task.id);
         const response = await fetch(`https://localhost:7093/api/Tasks/${task.id}`, {
             method: 'DELETE',
             headers: {
@@ -55,6 +54,27 @@ export async function deleteTaskServer(task) {
         return response; // The response object
     } catch (error) {
         console.error('Error deleting task:', error);
+        throw error;
+    }
+}
+
+export async function updateTask(task) {
+    try {
+        const response = await fetch(`https://localhost:7093/api/Tasks/${task.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': '*/*'
+            },
+            body: JSON.stringify(task)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response; 
+    } catch (error) {
+        console.error('Error updating task:', error);
         throw error;
     }
 }

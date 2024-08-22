@@ -1,12 +1,14 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "../style/EditOrCreate.css";
 import { AuthContext } from "../AuthContext";
-import { createTask, deleteTaskServer } from "../utils/TaskServiceCalls";
+import { createTask, deleteTaskServer, updateTask } from "../utils/TaskServiceCalls";
 import { DescriptionValidation, DueDateValidation, StatusValidation, TitleValidation } from "./Validation";
+import { convertDateFormat, DateConverter } from "../utils/DateConverter";
+import { set } from "date-fns";
 
 function EditOrCreate() {
-    const { editTask, addItemToTasksList, deleteTaskFromList } = useContext(AuthContext);
-    const [task, setTask] = useState(editTask || {
+    const { editTask, setEditTaskFun, addItemToTasksList, deleteTaskFromList, updateItemInTasksList } = useContext(AuthContext);
+    const [task, setTask] = useState(editTask && { ...editTask, dueDate: convertDateFormat(editTask.dueDate) } || {
         title: "",
         description: "",
         dueDate: "",
@@ -20,8 +22,10 @@ function EditOrCreate() {
     const buttonRef = useRef(null);
 
     useEffect(() => {
-        if (editTask) {
-            setTask(editTask);
+        if (editTask != null) {
+            setTask({ ...editTask, dueDate: convertDateFormat(editTask.dueDate) });
+        } else {
+            setTask({ title: "", description: "", dueDate: "", status: "ToDo" });
         }
     }, [editTask]);
 
@@ -40,19 +44,33 @@ function EditOrCreate() {
     const handleStatusChange = (e) => {
         setTask({ ...task, status: e.target.value });
     };
-
-    const newTask = () => {
+    const handleTaskChanged = () => {
         if (TitleValidation(task.title, setTitleError) && DescriptionValidation(task.description, setDescriptionError) && DueDateValidation(task.dueDate, setDueDateError) && StatusValidation(task.status, setStatusError)) {
-            createTask(task).then(response => {
-                addItemToTasksList(response);
+            if (editTask) {
+                updateTask(task).then(() => {
+                    updateItemInTasksList(task);
+                }).catch(error => {
+                    console.error("Error updating task", error);
+                });
+                setEditTaskFun(null);
+                setTask({ title: "", description: "", dueDate: "", status: "ToDo" });
                 // Close the modal
                 buttonRef.current.click();
                 return () => {
                     buttonRef.current.removeEventListener('click');
                 };
-            }).catch(error => {
-                console.error("Error saving task", error);
-            });
+            } else {
+                createTask(task).then(response => {
+                    addItemToTasksList(response);
+                    // Close the modal
+                    buttonRef.current.click();
+                    return () => {
+                        buttonRef.current.removeEventListener('click');
+                    };
+                }).catch(error => {
+                    console.error("Error saving task", error);
+                });
+            }
         }
     };
 
@@ -60,7 +78,6 @@ function EditOrCreate() {
         try {
             if (editTask) {
                 await deleteTaskServer(editTask);
-                console.log("Deleting task", task);
                 deleteTaskFromList(task.id);
                 // Close the modal
                 buttonRef.current.click();
@@ -85,54 +102,77 @@ function EditOrCreate() {
                         {/* Modal Body */}
                         <div className="modal-body">
                             <form>
-                                <div className="mb-3">
-                                    <label htmlFor="taskTitle" className="form-label">Title</label><br />
-                                    <span style={{ color: 'red' }} className="error">{titleError}</span>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="taskTitle"
-                                        placeholder="Enter task title"
-                                        value={task.title}
-                                        onChange={handleTitleChange}
-                                    />
+                                {/* Title Row */}
+                                <div className="mb-3 row align-items-center">
+                                    <label htmlFor="taskTitle" className="col-sm-2 col-form-label">Title</label>
+                                    <div className="col-sm-8">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="taskTitle"
+                                            placeholder="Enter task title"
+                                            value={task.title}
+                                            onChange={handleTitleChange}
+                                        />
+                                    </div>
+                                    <div className="col-sm-2">
+                                        <span style={{ color: 'red' }} className="error">{titleError}</span>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="taskDescription" className="form-label">Description</label><br />
-                                    <span style={{ color: 'red' }} className="error">{descriptionError}</span>
-                                    <textarea
-                                        className="form-control"
-                                        id="taskDescription"
-                                        rows="3"
-                                        placeholder="Enter task description"
-                                        value={task.description}
-                                        onChange={handleDescriptionChange}
-                                    ></textarea>
+
+                                {/* Description Row */}
+                                <div className="mb-3 row align-items-center">
+                                    <label htmlFor="taskDescription" className="col-sm-2 col-form-label">Description</label>
+                                    <div className="col-sm-8">
+                                        <textarea
+                                            className="form-control"
+                                            id="taskDescription"
+                                            rows="3"
+                                            placeholder="Enter task description"
+                                            value={task.description}
+                                            onChange={handleDescriptionChange}
+                                        ></textarea>
+                                    </div>
+                                    <div className="col-sm-2">
+                                        <span style={{ color: 'red' }} className="error">{descriptionError}</span>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="dueDate" className="form-label">Due Date</label><br />
-                                    <span style={{ color: 'red' }} className="error">{dueDateError}</span>
-                                    <input
-                                        type="date"
-                                        className="form-control"
-                                        id="dueDate"
-                                        value={task.dueDate}
-                                        onChange={handleDueDateChange}
-                                    />
+
+                                {/* Due Date Row */}
+                                <div className="mb-3 row align-items-center">
+                                    <label htmlFor="dueDate" className="col-sm-2 col-form-label">Due Date</label>
+                                    <div className="col-sm-8">
+                                        <input
+                                            type="date"
+                                            className="form-control"
+                                            id="dueDate"
+                                            value={task.dueDate}
+                                            onChange={handleDueDateChange}
+                                        />
+                                    </div>
+                                    <div className="col-sm-2">
+                                        <span style={{ color: 'red' }} className="error">{dueDateError}</span>
+                                    </div>
                                 </div>
-                                <div className="mb-3">
-                                    <label htmlFor="status" className="form-label">Status</label><br />
-                                    <span style={{ color: 'red' }} className="error">{statusError}</span>
-                                    <select
-                                        className="form-select"
-                                        id="status"
-                                        value={task.status}
-                                        onChange={handleStatusChange}
-                                    >
-                                        <option value="ToDo">ToDo</option>
-                                        <option value="InProgress">In Progress</option>
-                                        <option value="Done">Done</option>
-                                    </select>
+
+                                {/* Status Row */}
+                                <div className="mb-3 row align-items-center">
+                                    <label htmlFor="status" className="col-sm-2 col-form-label">Status</label>
+                                    <div className="col-sm-8">
+                                        <select
+                                            className="form-select"
+                                            id="status"
+                                            value={task.status}
+                                            onChange={handleStatusChange}
+                                        >
+                                            <option value="ToDo">ToDo</option>
+                                            <option value="InProgress">In Progress</option>
+                                            <option value="Done">Done</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-2">
+                                        <span style={{ color: 'red' }} className="error">{statusError}</span>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -146,13 +186,14 @@ function EditOrCreate() {
                             )}
                             <div>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary" style={{ marginLeft: "10px" }} onClick={newTask}>Save Task</button>
+                                <button type="button" className="btn btn-primary" style={{ marginLeft: "10px" }} onClick={handleTaskChanged}>Save Task</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </>
+
     );
 }
 

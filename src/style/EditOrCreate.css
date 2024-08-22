@@ -6,3 +6,86 @@
   .modal-content {
     height: 100% ;
   }
+
+  .form-label{
+    display: inline-block;
+
+    vertical-align: middle;
+    margin-right: 10px; /* Add some space between the label and input */
+  }
+
+  .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box; /* Ensure padding does not affect width */
+}
+
+/* General Modal Styling */
+.modal-content {
+  background-color: #fff7e6; /* Soft pastel cream background */
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  background-color: #ffdfba; /* Light pastel orange */
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  color: #444444; /* Dark gray for text */
+}
+
+.btn-close {
+  color: #444444; /* Match close button color */
+}
+
+.modal-body {
+  background-color: #fff7e6; /* Match modal body background */
+}
+
+.modal-footer {
+  background-color: #ffdfba; /* Match footer with header */
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Form Elements */
+.form-label {
+  color: #444444; /* Dark gray text for labels */
+}
+
+.form-control, .form-select {
+  background-color: #fff1d6; /* Light pastel peach background for inputs */
+  border: 1px solid #ffcba4; /* Light orange border */
+  color: #444444; /* Dark gray text */
+  border-radius: 5px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #8bb8fc; 
+  border: none;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background-color: #a7a8a8; /* Light pastel turquoise */
+  border: none;
+  color: #ffffff;
+}
+
+.btn-danger {
+  background-color: #f78686; /* Light pastel red */
+  border: none;
+  color: #ffffff;
+}
+
+/* Error Messages */
+.error {
+  color: #ff6f61; /* Light pastel red for errors */
+}
