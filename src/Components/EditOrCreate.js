@@ -3,11 +3,11 @@ import "../style/EditOrCreate.css";
 import { AuthContext } from "../AuthContext";
 import { createTask, deleteTaskServer, updateTask } from "../utils/TaskServiceCalls";
 import { DescriptionValidation, DueDateValidation, StatusValidation, TitleValidation } from "./Validation";
-import { convertDateFormat, DateConverter } from "../utils/DateConverter";
-import { set } from "date-fns";
+import { convertDateFormat } from "../utils/DateConverter";
+import { colors, colorsForModal } from "../utils/variables";
 
 function EditOrCreate() {
-    const { editTask, setEditTaskFun, addItemToTasksList, deleteTaskFromList, updateItemInTasksList } = useContext(AuthContext);
+    const { editTask, setEditTaskFun, addItemToTasksList, deleteTaskFromList, updateItemInTasksList, tasksList } = useContext(AuthContext);
     const [task, setTask] = useState(editTask && { ...editTask, dueDate: convertDateFormat(editTask.dueDate) } || {
         title: "",
         description: "",
@@ -44,6 +44,8 @@ function EditOrCreate() {
     const handleStatusChange = (e) => {
         setTask({ ...task, status: e.target.value });
     };
+
+
     const handleTaskChanged = () => {
         if (TitleValidation(task.title, setTitleError) && DescriptionValidation(task.description, setDescriptionError) && DueDateValidation(task.dueDate, setDueDateError) && StatusValidation(task.status, setStatusError)) {
             if (editTask) {
@@ -61,7 +63,8 @@ function EditOrCreate() {
                 };
             } else {
                 createTask(task).then(response => {
-                    addItemToTasksList(response);
+
+                    addItemToTasksList({ ...response, color: colors[tasksList.length % colors.length] });
                     // Close the modal
                     buttonRef.current.click();
                     return () => {
@@ -93,20 +96,22 @@ function EditOrCreate() {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         {/* Modal Header */}
-                        <div className="modal-header">
+                        <div style={{ backgroundColor: colorsForModal[task.color]?.["modal-footer"] }} 
+                        className="modal-header">
                             <h5 className="modal-title" id="taskModalLabel">{editTask ? "Edit Task" : "Add New Task"}</h5>
                             <button ref={buttonRef}
                                 type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         {/* Modal Body */}
-                        <div className="modal-body">
+                        <div style={{backgroundColor: colorsForModal[task.color]?.["modal-body"]}} className="modal-body">
                             <form>
                                 {/* Title Row */}
                                 <div className="mb-3 row align-items-center">
                                     <label htmlFor="taskTitle" className="col-sm-2 col-form-label">Title</label>
                                     <div className="col-sm-8">
                                         <input
+                                            style={{ backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"] }}
                                             type="text"
                                             className="form-control"
                                             id="taskTitle"
@@ -125,6 +130,7 @@ function EditOrCreate() {
                                     <label htmlFor="taskDescription" className="col-sm-2 col-form-label">Description</label>
                                     <div className="col-sm-8">
                                         <textarea
+                                            style={{ backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"] }}
                                             className="form-control"
                                             id="taskDescription"
                                             rows="3"
@@ -143,6 +149,7 @@ function EditOrCreate() {
                                     <label htmlFor="dueDate" className="col-sm-2 col-form-label">Due Date</label>
                                     <div className="col-sm-8">
                                         <input
+                                        style={{backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"]}}
                                             type="date"
                                             className="form-control"
                                             id="dueDate"
@@ -160,6 +167,7 @@ function EditOrCreate() {
                                     <label htmlFor="status" className="col-sm-2 col-form-label">Status</label>
                                     <div className="col-sm-8">
                                         <select
+                                        style={{backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"]}}
                                             className="form-select"
                                             id="status"
                                             value={task.status}
@@ -178,7 +186,8 @@ function EditOrCreate() {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className={`modal-footer ${editTask ? "justify-content-between" : "justify-content-end"}`}>
+                        <div style={{ backgroundColor: colorsForModal[task.color]?.["modal-footer"] }}
+                            className={`modal-footer ${editTask ? "justify-content-between" : "justify-content-end"}`}>
                             {editTask && (
                                 <button type="button" className="btn btn-danger" onClick={deleteTask}>
                                     Delete Task

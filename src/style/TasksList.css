@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     height: 70vh;
     justify-content: center;
+
 }
 
 .task {
@@ -78,17 +79,24 @@
 }
 
 /* Media query for smaller screens */
-@media (max-width: 768px) {
-    .task {
-        width: 40vw;
-        height: auto;
+@media (max-width: 1000px) {
+    @media (max-height: 600px) {
+        .task {
+            width: 40vw;
+            height: auto;
+        }
+    
+        .titleDet {
+            font-size: 1.5em !important;
+        }
+    
+        .details {
+            font-size: 0.9em;
+        }
+    
+        .taskStatus {
+            padding: 5px 10px;
+        }
     }
-
-    .titleDet {
-        font-size: 1.5em;
-    }
-
-    .details {
-        font-size: 1em;
-    }
+    
 }
