@@ -1,133 +1,118 @@
-@import "./colors.css";
+.modal-dialog {
+    max-height: 90vh; 
+    overflow-y: auto; 
+  }
+  
+  .modal-content {
+    height: 100% ;
+  }
 
-.task-form-container {
-    font-family: "Imprima", sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: stretch;
-    background-color: rgba(204, 228, 249, 0.7);
-    border-radius: 10px;
-    padding: 20px;
-    width: 50vw;
-    height: 90vh;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); 
+  .form-label{
+    display: inline-block;
 
- 
-}
-
-h2 {
-    color: #555;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.main-task-container {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    /* background-color: var(--light-blue-color); */
-
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-label {
-    flex: 1;
+    vertical-align: middle;
     margin-right: 10px;
-    color: #333;
-    font-weight: bold;
+  }
+
+  .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box; 
 }
 
-input[type="text"],
-textarea,
-select,
-input[type="date"] {
-    flex: 2;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    font-size: 1rem;
-    color: #333;
+#taskTitle, #dueDate{
+  background-color: #E6F4FF; 
 }
 
-textarea {
-    resize: none;
-    height: 20vh;
+.modal-content {
+  background-color: var(--light-blue-color); 
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.btn-submit, .btn-delete {
-    width: 30%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.modal-header {
+  background-color: var(--light-blue-color);; 
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.btn-submit {
-    background-color: var(--blue-color);
+.modal-title {
+  color: #444444;
 }
 
-.btn-delete {
-    background-color: var(--error);
+.modal-body {
+  background-color: #C7E6FF 
 }
 
-.btn-submit:hover {
-    background-color: var(--light-blue-color);
+.modal-footer {
+  background-color:  #D9EEFF; 
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.btn-delete:hover {
-    background-color: var(--light-error);
-}
-.btn-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+/* Form Elements */
+.form-label {
+  color: #444444; 
 }
 
+.form-control, .form-select {
+  background-color: #E6F4FF; 
+  border: 1px solid #F2FAFF; 
+  color: #444444;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.btn-modal{
+  margin: 20px;
+}
+
+.btn-close {
+  color: #444444; 
+}
+
+.btn-primary {
+  background-color: #8bb8fc; 
+  border: none;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background-color: #a7a8a8; /* Light pastel turquoise */
+  border: none;
+  color: #ffffff;
+}
+
+.btn-danger {
+  background-color: #f78686; /* Light pastel red */
+  border: none;
+  color: #ffffff;
+}
+
+/* Error Messages */
 .error {
-    color: var(--error);
+  color: #ff6f61; 
 }
 
-.closeIcon {
-    width: 3vw;
-    height: 3vh;
+/* WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 5px;  /* Width of the scrollbar */
+  cursor: pointer;
 }
 
-.new-task-header {
-        /* position: absolute; */
-    display: flex;
-    justify-content: space-between; /* Space between items */
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 20px;
-    border-radius: 5px;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;  /* Background of the track */
+  border-radius: 10px;  /* Rounded corners for the track */
 }
 
-.closeIcon {
-    width: 2.5vw;
-    height: auto;
-    cursor: pointer; /* Ensure it's clear that the icon is clickable */
+::-webkit-scrollbar-thumb {
+  background: #888;  /* Color of the thumb */
+  border-radius: 10px;  /* Rounded corners for the thumb */
 }
 
-.new-task-header h2 {
-    flex-grow: 1; /* Allow the h2 to take up available space */
-    text-align: center; /* Center the text within the h2 */
-    color: #555;
-    margin: 0; /* Remove default margin */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;  /* Color of the thumb on hover */
 }

@@ -46,6 +46,13 @@ function AuthProvider({ children }) {
         setFilteredList((prevFilteredList) => prevFilteredList.filter((item) => item.id !== id));
     }
 
+    /**
+     * updateItemInTasksList
+     * 
+     * Updates an existing task in both the tasks list and filtered list.
+     * 
+     * @param {object} updatedItem - The task object with updated details.
+     */
     const updateItemInTasksList = (updatedItem) => {
         setTasksList((prevTasksList) => prevTasksList.map((item) => item.id === updatedItem.id ? updatedItem : item));
         let updatedList = filteredList.map((item) => item.id === updatedItem.id ? updatedItem : item);

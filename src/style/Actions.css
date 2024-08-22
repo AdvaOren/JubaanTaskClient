@@ -24,7 +24,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 300px; /* Adjust this width as needed */
+    width: 300px; 
     border-radius: 15px;
     border: 2px solid var(--blue-color);
     padding: 5px;
@@ -59,7 +59,7 @@
 }
 
 .filterButton:hover {
-    background-color: white; /* Slightly darker shade on hover */
+    background-color: white; 
     border: 1px solid var(--blue-color);
     color: var(--blue-color);
 }
@@ -106,10 +106,10 @@
 }
 
 .arrow {
-    color: initial; /* Set the initial color of the icon */
-    transition: color 0.3s ease; /* Optional: Add transition for smooth color change */
+    color: initial; 
+    transition: color 0.3s ease; 
 }
 
 .arrow.down:hover {
-    color: var(--blue-color); /* Change the color on hover */
+    color: var(--blue-color);
 }

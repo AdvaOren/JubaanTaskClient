@@ -1,3 +1,10 @@
+/**
+ * getTaskList
+ * 
+ * Fetches the list of tasks from the API.
+ * 
+ * @returns {Array} - An array of task objects if the fetch is successful.
+ */
 export async function getTaskList() {
     try {
         // Fetch tasks from the API
@@ -14,6 +21,15 @@ export async function getTaskList() {
     }
 }
 
+/**
+ * createTask
+ * 
+ * Sends a POST request to the API to create a new task.
+ * 
+ * @param {Object} task - The task object to be created.
+ * @returns {Object} - The created task object from the server.
+ * @throws {Error} - Throws an error if the task creation fails.
+ */
 export async function createTask(task) {
     try {
         const response = await fetch('https://localhost:7093/api/Tasks', {
@@ -37,6 +53,15 @@ export async function createTask(task) {
     }
 }
 
+/**
+ * deleteTaskServer
+ * 
+ * Sends a DELETE request to the API to delete a specific task.
+ * 
+ * @param {Object} task - The task object to be deleted (must include the task's ID).
+ * @returns {Object} - The response object from the server.
+ * @throws {Error} - Throws an error if the task deletion fails.
+ */
 export async function deleteTaskServer(task) {
     try {
         const response = await fetch(`https://localhost:7093/api/Tasks/${task.id}`, {
@@ -58,6 +83,15 @@ export async function deleteTaskServer(task) {
     }
 }
 
+/**
+ * updateTask
+ * 
+ * Sends a PUT request to the API to update a specific task.
+ * 
+ * @param {Object} task - The task object with updated details (must include the task's ID).
+ * @returns {Object} - The response object from the server.
+ * @throws {Error} - Throws an error if the task update fails.
+ */
 export async function updateTask(task) {
     try {
         const response = await fetch(`https://localhost:7093/api/Tasks/${task.id}`, {

@@ -1,3 +1,4 @@
+// Task colors
 export const colors = [
     "#FFB3BA", // Light Pink
     "#FFDFBA", // Light Orange
@@ -8,6 +9,7 @@ export const colors = [
     "#E0BBE4", // Light Purple
 ];
 
+// Modal colors by the task color
 export const colorsForModal = {
     "#FFB3BA": {
         "modal-body": "#FFBCC1",

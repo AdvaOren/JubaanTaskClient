@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 20px; /* Add padding to prevent content from touching the edges */
+  padding: 20px; 
 }
 
 #taskHeader {
@@ -18,6 +18,6 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     padding-top: 10px;
-    margin: 0; /* Remove default margin */
+    margin: 0; 
     margin-bottom: 5vh;
 }

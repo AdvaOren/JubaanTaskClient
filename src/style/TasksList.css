@@ -3,9 +3,7 @@
     flex-wrap: wrap;
     height: 70vh;
     justify-content: center;
-
 }
-
 
 .task {
     display: flex;
@@ -34,9 +32,9 @@
     text-align: left;
     margin-left: 10px;
     font-size: 1.2em;
-    word-wrap: break-word;  /* Wrap long words */
-    overflow: hidden;  /* Hide overflow */
-    text-overflow: ellipsis;  /* Show ellipsis for overflowed text */
+    word-wrap: break-word;  
+    overflow: hidden;  
+    text-overflow: ellipsis;  
 }
 
 .task:hover {
@@ -53,7 +51,7 @@
     height: auto;
     font-weight: bold;
     align-self: center;
-    margin-top: auto; /* Pushes the status to the bottom */
+    margin-top: auto; 
 }
 
 .details span {

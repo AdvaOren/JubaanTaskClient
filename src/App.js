@@ -1,12 +1,12 @@
+import { format } from 'date-fns';
+import { useContext, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Home from './Components/Home.js';
-import { useContext, useEffect } from 'react';
 import { AuthContext } from './AuthContext';
 import { getTaskList } from './utils/TaskServiceCalls.js';
-import { format } from 'date-fns';
 import { colors } from './utils/variables.js';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AddTask from './Components/AddTask.js';
+import EditTask from './Components/EditTask.js';
 
 function App() {
   const { setTasksListFun, setFilteredListFun } = useContext(AuthContext);
@@ -31,7 +31,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path="/add-task" element={<AddTask />} />
+          <Route path="/edit-task" element={<EditTask />} />
         </Routes>
       </BrowserRouter>
     </div>
