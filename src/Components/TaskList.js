@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import '../style/TasksList.css';
 import { AuthContext } from '../AuthContext';
 
 function TasksList() {
-    const { filteredList, setEditTaskFun, setPopUpFun } = useContext(AuthContext);
+    const { filteredList, setEditTaskFun } = useContext(AuthContext);
 
     const description = (desc) => {
         if (desc.length > 40) {

@@ -3,11 +3,13 @@ import { useContext, useState } from 'react';
 import '../style/Actions.css';
 import { AuthContext } from '../AuthContext';
 import { Sort } from '../utils/Sort';
+import { useNavigate } from 'react-router';
 
 function Actions() {
-    const { setEditTaskFun, tasksList, setFilteredListFun, currFilter, setCurrFilter } = useContext(AuthContext);
+    const { tasksList, setFilteredListFun, currFilter, setCurrFilter } = useContext(AuthContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
+    const navigate = useNavigate();
 
     const sortTasks = (criteria) => {
         setCurrFilter(criteria);
@@ -22,7 +24,7 @@ function Actions() {
     };
 
     const newTask = () => {
-        setEditTaskFun(null);
+        navigate("/add-task");
     };
 
     const filterTasksBySearch = (term) => {
@@ -54,8 +56,6 @@ function Actions() {
 
 
             <AddTask type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#taskModal"
                 id="addIcon"
                 onClick={newTask} />
         </div >

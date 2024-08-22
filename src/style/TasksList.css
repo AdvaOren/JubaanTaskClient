@@ -6,6 +6,7 @@
 
 }
 
+
 .task {
     display: flex;
     flex-direction: column;
@@ -16,8 +17,12 @@
     height: 20vw;
     margin: 10px;
     box-sizing: border-box;
-    overflow: hidden;  /* Prevent overflow */
-    flex-shrink: 1;  /* Allow shrinking */
+    overflow: hidden;  
+    flex-shrink: 1;  
+    justify-content: space-between; 
+}
+.taskDetails {
+    flex-grow: 1; /* Allow task details to grow and fill space */
 }
 
 .details {
@@ -48,6 +53,7 @@
     height: auto;
     font-weight: bold;
     align-self: center;
+    margin-top: auto; /* Pushes the status to the bottom */
 }
 
 .details span {
@@ -72,7 +78,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-size: 1rem; /* Slightly larger for emphasis */
+    font-size: 1rem;
     font-weight: bold;
     color: #292828; 
     margin-bottom: 5px;
@@ -83,6 +89,29 @@
     @media (max-height: 600px) {
         .task {
             width: 40vw;
+            height: auto;
+        }
+    
+        .titleDet {
+            font-size: 1.5em !important;
+        }
+    
+        .details {
+            font-size: 0.9em;
+        }
+    
+        .taskStatus {
+            padding: 5px 10px;
+        }
+    }
+    
+}
+
+
+@media (max-width: 1200px) {
+    @media (max-height: 600px) {
+        .task {
+            width: 20vw;
             height: auto;
         }
     

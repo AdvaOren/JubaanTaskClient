@@ -1,5 +1,4 @@
 // React and Hooks
-import { set } from 'date-fns';
 import React, { useState } from 'react';
 import { Sort } from './utils/Sort';
 
@@ -11,14 +10,12 @@ function AuthProvider({ children }) {
     const [tasksList, setTasksList] = useState([]);
     const [filteredList, setFilteredList] = useState([]);
     const [editTask, setEditTask] = useState(null);
-    const [popUp, setPopUp] = useState(false);
     const [currFilter, setCurrFilter] = useState('Date');
 
 
     // Setters functions
     const setTasksListFun = (newList) => { setTasksList(newList); };
     const setEditTaskFun = (val) => {setEditTask(val); };
-    const setPopUpFun = (val) => { setPopUp(val); };
     const setFilteredListFun = (newList) => { setFilteredList(newList); };
 
     /**
@@ -29,6 +26,7 @@ function AuthProvider({ children }) {
     const addItemToTasksList = (newItem) => {
         if (tasksList.length === 0) {
             setTasksList([newItem]);
+            setFilteredList([newItem]);
             return;
         }
         setTasksList((prevTasksList) => [...prevTasksList, newItem]);
@@ -62,8 +60,6 @@ function AuthProvider({ children }) {
             deleteTaskFromList,
             setEditTaskFun,
             editTask,
-            setPopUpFun,
-            popUp,
             updateItemInTasksList,
             filteredList,
             setFilteredList,

@@ -12,4 +12,9 @@ export function convertDateFormat(dateString) {
     return `${year}-${month}-${day}`;
 }
 
+export function isValidDateFormat(dateStr) {
+    // Regular expression to match the format "YYYY-MM-DD"
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(dateStr);
+}
 

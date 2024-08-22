@@ -1,4 +1,5 @@
-export const colors = ["#FFB3BA", // Light Pink
+export const colors = [
+    "#FFB3BA", // Light Pink
     "#FFDFBA", // Light Orange
     "#FFFFBA", // Light Yellow
     "#BAFFC9", // Light Green

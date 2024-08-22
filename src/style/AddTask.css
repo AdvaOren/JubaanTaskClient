@@ -1,0 +1,112 @@
+@import "./colors.css";
+
+.task-form-container {
+    font-family: "Imprima", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: stretch;
+    background-color: rgba(204, 228, 249, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    width: 50vw;
+    height: 90vh;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: hidden;
+ 
+}
+
+h2 {
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-task-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: var(--light-blue-color); */
+
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    flex: 1;
+    margin-right: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="date"] {
+    flex: 2;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #333;
+}
+
+textarea {
+    resize: none;
+    height: 20vh;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--blue-color);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: var(--light-blue-color);
+}
+
+.error {
+    color: #ff6f61;
+    /* Light pastel red for errors */
+}
+.closeIcon {
+    width: 3vw;
+    height: 3vh;
+}
+
+.new-task-header {
+    display: flex;
+    justify-content: space-between; /* Space between items */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.closeIcon {
+    width: 2.5vw;
+    height: auto;
+    cursor: pointer; /* Ensure it's clear that the icon is clickable */
+}
+
+.new-task-header h2 {
+    flex-grow: 1; /* Allow the h2 to take up available space */
+    text-align: center; /* Center the text within the h2 */
+    color: #555;
+    margin: 0; /* Remove default margin */
+}
