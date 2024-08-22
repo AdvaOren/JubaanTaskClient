@@ -1,70 +1,162 @@
-# Getting Started with Create React App
+# To Do List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple application built with React for the frontend and ASP.NET Core Web API for the backend. The application allows users to create, view, edit, delete, and search tasks. Tasks can be managed with attributes such as Title, Description, Status (To Do, In Progress, Done), and Due Date.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+- [Frontend Overview](#frontend-overview)
+- [Backend Overview](#backend-overview)
+- [Features](#features)
+- [Bonus Features](#bonus-features)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before you begin, ensure you have met the following requirements:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Node.js** and **npm** installed (for React frontend)
+- **.NET 6 SDK** installed (for ASP.NET Core backend)
+- **MongoDB** installed and running 
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Clone the repository:
 
-### `npm run build`
+```bash
+git clone https://github.com/your-username/task-management-app.git
+cd task-management-app
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Backend (ASP.NET Core Web API)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Navigate to the backend project directory:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    cd TaskManagementApi
+    ```
 
-### `npm run eject`
+2. Install the required dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    dotnet restore
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Configure the database settings in `appsettings.json`:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    - **MongoDB:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+      ```json
+      "DatabaseSettings": {
+        "ConnectionString": "mongodb://localhost:27017",
+        "DatabaseName": "TaskManagementDb",
+        "TasksCollectionName": "Tasks"
+      }
+      ```
+      
+4. Run the application:
 
-## Learn More
+    ```bash
+    dotnet run
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 3. Frontend (React)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Navigate to the frontend project directory:
 
-### Code Splitting
+    ```bash
+    cd task-management-ui
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Install the required dependencies:
 
-### Analyzing the Bundle Size
+    ```bash
+    npm install
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. Run the React application:
 
-### Making a Progressive Web App
+    ```bash
+    npm start
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Running the Application
 
-### Advanced Configuration
+After completing the installation steps, you can access the application as follows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. **Backend (ASP.NET Core Web API):**
 
-### Deployment
+   - The API will be running at `https://localhost:7093`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. **Frontend (React):**
 
-### `npm run build` fails to minify
+   - The React application will be running at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Project Structure
+
+### Backend (ASP.NET Core Web API)
+
+- **Controllers**: API endpoints are defined here (`TasksController.cs`).
+- **Models**: Contains the `Task` model class representing the data structure.
+- **Repositories**: Contains the `TaskRepository` that interacts with the database.
+- **Services**: Contains the service logic if needed.
+
+### Frontend (React)
+
+- **components**: Contains reusable React components (`TaskList`, `TaskDetail`, `TaskForm`).
+- **pages**: Contains page components for different routes (`TaskListPage`, `TaskDetailPage`).
+- **services**: Contains services for API calls (`taskService.js`).
+- **App.js**: Main app component that handles routing.
+- **index.js**: Entry point of the React application.
+
+## API Endpoints
+
+- **GET /api/tasks**: Retrieve a list of all tasks.
+- **GET /api/tasks/{id}**: Retrieve the details of a specific task.
+- **POST /api/tasks**: Create a new task.
+- **PUT /api/tasks/{id}**: Update an existing task.
+- **DELETE /api/tasks/{id}**: Delete a task.
+
+## Frontend Overview
+
+- **Task List Overview Page**: Displays all tasks, sortable by title and due date.
+- **Task Details Page**: Displays and allows editing of a single task.
+- **Create New Task Page**: Form to create a new task.
+- **Delete Task**: Functionality to delete a task from the list.
+- **Search Functionality**: Allows users to search for tasks by title or description.
+
+## Backend Overview
+
+- **Task Model**: Defines the structure of a task.
+- **Repository Layer**: Handles database interactions.
+- **Validation**: Ensures that the title is not empty and the due date is not in the past.
+- **Error Handling**: Returns appropriate HTTP status codes for various conditions.
+
+## Features
+
+- Task List with Sorting by Title and Due Date.
+- Task Details Page with Edit Functionality.
+- Create New Task Form with Validation.
+- Delete Task Functionality.
+- Search Tasks by Title or Description.
+
+## Bonus Features
+
+- Pagination on the task list overview page.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+This README provides a comprehensive overview of the project and guides users and developers through the installation, setup, and usage of the application. You can adapt this template based on specific details or preferences in your project.
