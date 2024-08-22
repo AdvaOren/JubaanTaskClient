@@ -1,7 +1,3 @@
-Here's an updated README file tailored to describe your Task List application, focusing on installation and running the application entirely from the backend, which serves both the React frontend and ASP.NET Core Web API.
-
----
-
 # Task List Application
 
 This Task List application is a full-stack web application that allows users to manage tasks with attributes such as Title, Description, Status, and Due Date. The application is built with React for the frontend and ASP.NET Core Web API for the backend. The React frontend is served directly by the ASP.NET Core backend, making it a unified application that can be deployed and run from a single server.
