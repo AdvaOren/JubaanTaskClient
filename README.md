@@ -47,7 +47,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 git clone https://github.com/AdvaOren/ToDoList.git
-cd task-list-app
+cd ToDoList
 ```
 
 ### 2. Set Up the Backend (ASP.NET Core)
@@ -61,7 +61,7 @@ cd task-list-app
 2. **Restore NuGet packages**:
 
     ```bash
-    dotnet restore <.csproj>
+    dotnet restore JubaansTask.csproj
     ```
 
 3. **Configure the database**:
