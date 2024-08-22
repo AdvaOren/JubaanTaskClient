@@ -10,8 +10,6 @@ This Task List application is a full-stack web application that allows users to 
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
