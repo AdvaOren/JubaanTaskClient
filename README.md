@@ -18,6 +18,8 @@ This Task List application is a full-stack web application that allows users to 
 The Task List Application provides a simple interface to manage tasks. Users can:
 
 - View a list of tasks with the ability to sort by title and due date.
+  ![image](https://github.com/user-attachments/assets/fda3be07-652a-4c97-aa9b-40f96a416283)
+
 - Create new tasks with details like title, description, status, and due date.
 - Edit task details.
 - Delete tasks from the list.
