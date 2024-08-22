@@ -24,7 +24,7 @@ function Actions() {
     };
 
     const newTask = () => {
-        navigate("/add-task");
+        // navigate("/add-task");
     };
 
     const filterTasksBySearch = (term) => {
@@ -57,7 +57,10 @@ function Actions() {
 
             <AddTask type="button"
                 id="addIcon"
-                onClick={newTask} />
+                // onClick={newTask}
+                data-bs-toggle="modal"
+                data-bs-target="#taskModal"
+            />
         </div >
     );
 }

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import '../style/TasksList.css';
 import { AuthContext } from '../AuthContext';
-
+import { useNavigate } from 'react-router';
 function TasksList() {
     const { filteredList, setEditTaskFun } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const description = (desc) => {
         if (desc.length > 40) {
@@ -14,6 +15,7 @@ function TasksList() {
 
     const editTask = (task) => {
         setEditTaskFun(task);
+        navigate('/add-task')
     }
 
     return (
@@ -22,8 +24,8 @@ function TasksList() {
                 filteredList.map((task, indx) => {
                     return (
                         <div key={indx} className="task" type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#taskModal"
+                            // data-bs-toggle="modal"
+                            // data-bs-target="#taskModal"
                             onClick={() => editTask(task)}
                             style={{ backgroundColor: task.color }}
                         >

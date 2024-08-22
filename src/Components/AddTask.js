@@ -1,59 +1,116 @@
-import React, { useContext, useState } from 'react';
-import '../style/AddTask.css';
-import { DescriptionValidation, DueDateValidation, StatusValidation, TitleValidation } from "./Validation";
-import { createTask } from "../utils/TaskServiceCalls";
-import { AuthContext } from '../AuthContext';
-import { colors } from '../utils/variables';
-import { useNavigate } from 'react-router';
-import { format } from 'date-fns';
+import { useContext, useEffect, useRef, useState } from "react";
+import "../style/AddTask.css";
+import { AuthContext } from "../AuthContext";
+import { deleteTaskServer, updateTask } from "../utils/TaskServiceCalls";
+import { DueDateValidation, StatusValidation, TitleValidation } from "./Validation";
+import { colorsForModal } from "../utils/variables";
+import { convertDateFormat, DateConverter, isValidDateFormat } from "../utils/DateConverter";
+import { format } from "date-fns";
 import { ReactComponent as BackIcon } from '../assets/icons/backwardIcon.svg';
+import { useNavigate } from 'react-router';
 
 
 function AddTask() {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [status, setStatus] = useState('ToDo');
-    const [dueDate, setDueDate] = useState('');
+    const { editTask, deleteTaskFromList, updateItemInTasksList } = useContext(AuthContext);
+    const [task, setTask] = useState(editTask || {
+        title: "",
+        description: "",
+        dueDate: "",
+        status: "ToDo"
+    });
+    const [changed, setChanged] = useState(false);
+
     const [titleError, setTitleError] = useState("");
-    const [descriptionError, setDescriptionError] = useState("");
     const [dueDateError, setDueDateError] = useState("");
     const [statusError, setStatusError] = useState("");
-    const { addItemToTasksList, tasksList } = useContext(AuthContext);
+    const [updateDueDate, setUpdateDueDate] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (TitleValidation(title, setTitleError) &&
-            DueDateValidation(dueDate, setDueDateError) &&
-            StatusValidation(status, setStatusError)) {
+    useEffect(() => {
+        if (editTask != null) {
+            setUpdateDueDate(convertDateFormat(editTask.dueDate));
+            setTask(editTask);
+        } else {
+            setTask({ title: "", description: "", dueDate: "", status: "ToDo" });
+        }
+    }, [editTask]);
 
-            const task = { title: title, description: description, status: status, dueDate: dueDate };
-            createTask(task).then(response => {
-                addItemToTasksList({ ...response, dueDate: format(new Date(dueDate), 'dd/MM/yyyy'), color: colors[tasksList.length % colors.length] });
-                navigate("/");
+
+    const handleTitleChange = (e) => {
+        setChanged(true);
+        setTask({ ...task, title: e.target.value });
+    };
+
+    const handleDescriptionChange = (e) => {
+        setChanged(true);
+        setTask({ ...task, description: e.target.value });
+    };
+
+    const handleDueDateChange = (e) => {
+        setChanged(true);
+        setUpdateDueDate(e.target.value);
+        setTask({ ...task, dueDate: e.target.value });
+    };
+
+    const handleStatusChange = (e) => {
+        setChanged(true);
+        setTask({ ...task, status: e.target.value });
+    };
+
+    const resetErrors = () => {
+        setTitleError("");
+        setDueDateError("");
+        setStatusError("");
+    };
+
+
+    const handleSubmit = () => {
+        if (changed && task && TitleValidation(task.title, setTitleError) && DueDateValidation(updateDueDate, setDueDateError) && StatusValidation(task.status, setStatusError)) {
+            if (!isValidDateFormat(updateDueDate)) {
+                setUpdateDueDate(DateConverter(updateDueDate));
+                setTask({ ...task, dueDate: updateDueDate });
+            }
+            updateTask({ ...task, dueDate: updateDueDate }).then(() => {
+                updateItemInTasksList({ ...task, dueDate: format(new Date(updateDueDate), 'dd/MM/yyyy') });
             }).catch(error => {
-                console.error("Error saving task", error);
+                console.error("Error updating task", error);
             });
+        }
+        resetErrors();
+        navigate('/');
+    };
+
+    const deleteTask = async () => {
+        try {
+            if (editTask) {
+                await deleteTaskServer(editTask);
+                deleteTaskFromList(task.id);
+                navigate('/');
+            }
+        } catch (error) {
+            console.error("Error deleting task", error)
         }
     };
 
 
     return (
         <div className='main-task-container'>
-            <div className="task-form-container">
-                <div className='new-task-header'>
+            <div className="task-form-container" style={task && { backgroundColor: colorsForModal[task.color]?.["modal-body"] }}>
+                <div className='new-task-header'
+                    style={task && { backgroundColor: colorsForModal[task.color]?.["modal-footer"] }}>
                     <BackIcon className="closeIcon" onClick={() => navigate("/")} />
-                    <h2>Add New Task</h2>
-
+                    <h2>Edit Task</h2>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}
+                    style={task && { backgroundColor: colorsForModal[task.color]?.["modal-body"] }}>
                     <div className="form-group">
                         <label htmlFor="taskTitle">Title:</label>
                         <input
+                            style={task && { backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"] }}
                             type="text"
                             id="taskTitle"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={task.title}
+                            onChange={(e) => handleTitleChange(e)}
                             required
                         />
 
@@ -61,17 +118,30 @@ function AddTask() {
                     <div className="form-group">
                         <label htmlFor="taskDescription">Description:</label>
                         <textarea
+                            style={task && { backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"] }}
                             id="taskDescription"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            value={task.description}
+                            onChange={(e) => handleDescriptionChange(e)}
                         ></textarea><br />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="taskDueDate">Due Date:</label>
+                        <input
+                            style={task && { backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"] }}
+                            type="date"
+                            id="taskDueDate"
+                            value={updateDueDate}
+                            onChange={(e) => handleDueDateChange(e)}
+                            required
+                        /><br />
                     </div>
                     <div className="form-group">
                         <label htmlFor="taskStatus">Status:</label>
                         <select
+                            style={task && { backgroundColor: colorsForModal[task.color]?.["form-control-select-back"], borderColor: colorsForModal[task.color]?.["form-control-select-border"] }}
                             id="taskStatus"
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
+                            value={task.status}
+                            onChange={(e) => handleStatusChange(e)}
                             required
                         >
                             <option value="ToDo">To Do</option>
@@ -79,21 +149,14 @@ function AddTask() {
                             <option value="Done">Done</option>
                         </select><br />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="taskDueDate">Due Date:</label>
-                        <input
-                            type="date"
-                            id="taskDueDate"
-                            value={dueDate}
-                            onChange={(e) => setDueDate(e.target.value)}
-                            required
-                        /><br />
+                    <div className="btn-container">
+                        <button onClick={deleteTask} type="button" className="btn-delete">Delete Task</button>
+                        <button onClick={handleSubmit} type="submit" className="btn-submit">Save Task</button>
                     </div>
-                    <button onClick={handleSubmit} type="submit" className="btn-submit">Add Task</button>
+
                     <span style={{ color: 'red' }} className="error">{dueDateError}</span>
                     <span style={{ color: 'red' }} className="error">{statusError}</span>
-                    <span style={{ color: 'red' }} className="error">{descriptionError}</span>
-                    <span style={{ color: 'red', left: 0 }} className="error">{titleError}</span>
+                    <span style={{ color: 'red' }} className="error">{titleError}</span>
                 </form>
             </div>
         </div>

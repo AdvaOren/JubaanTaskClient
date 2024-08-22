@@ -17,19 +17,26 @@
   .form-control {
     display: inline-block;
     vertical-align: middle;
-    box-sizing: border-box; /* Ensure padding does not affect width */
+    box-sizing: border-box; 
+}
+#taskTitle, #dueDate{
+  background-color: #E6F4FF; 
+}
+
+.btn-modal{
+  margin: 20px;
 }
 
 /* General Modal Styling */
 .modal-content {
-  background-color: #fff7e6; /* Soft pastel cream background */
+  background-color: var(--light-blue-color); 
   border-radius: 10px;
   border: none;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .modal-header {
-  background-color: #ffdfba; /* Light pastel orange */
+  background-color: var(--light-blue-color);; 
   border-bottom: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -44,11 +51,11 @@
 }
 
 .modal-body {
-  background-color: #fff7e6; /* Match modal body background */
+  background-color: #C7E6FF 
 }
 
 .modal-footer {
-  background-color: #ffdfba; /* Match footer with header */
+  background-color:  #D9EEFF; /* Match footer with header */
   border-top: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -60,8 +67,8 @@
 }
 
 .form-control, .form-select {
-  background-color: #fff1d6; /* Light pastel peach background for inputs */
-  border: 1px solid #ffcba4; /* Light orange border */
+  background-color: #E6F4FF; /* Light pastel peach background for inputs */
+  border: 1px solid #F2FAFF; /* Light orange border */
   color: #444444; /* Dark gray text */
   border-radius: 5px;
 }

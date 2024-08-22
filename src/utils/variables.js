@@ -30,8 +30,8 @@ export const colorsForModal = {
     },
 
     "#FFC3A0": {
-        "modal-body": "#fff7e6",
-        "modal-footer": "#ffdfba", "form-control-select-back": "#fff1d6", "form-control-select-border": "#ffcba4"
+        "modal-body": "#ffdfba",
+        "modal-footer": "#fff1d6", "form-control-select-back": "#fff1d6", "form-control-select-border": "#ffcba4"
     },
 
     "#BAE1FF": {

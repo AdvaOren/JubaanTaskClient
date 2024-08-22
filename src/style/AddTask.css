@@ -14,6 +14,8 @@
     margin: 20px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow-y: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); 
+
  
 }
 
@@ -65,11 +67,9 @@ textarea {
     height: 20vh;
 }
 
-.btn-submit {
-    display: block;
-    width: 100%;
+.btn-submit, .btn-delete {
+    width: 30%;
     padding: 10px;
-    background-color: var(--blue-color);
     border: none;
     border-radius: 5px;
     color: #fff;
@@ -78,24 +78,45 @@ textarea {
     transition: background-color 0.3s;
 }
 
+.btn-submit {
+    background-color: var(--blue-color);
+}
+
+.btn-delete {
+    background-color: var(--error);
+}
+
 .btn-submit:hover {
     background-color: var(--light-blue-color);
 }
 
-.error {
-    color: #ff6f61;
-    /* Light pastel red for errors */
+.btn-delete:hover {
+    background-color: var(--light-error);
 }
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.error {
+    color: var(--error);
+}
+
 .closeIcon {
     width: 3vw;
     height: 3vh;
 }
 
 .new-task-header {
+        /* position: absolute; */
     display: flex;
     justify-content: space-between; /* Space between items */
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
 }
 
 .closeIcon {
