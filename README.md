@@ -31,14 +31,14 @@ Before you begin, ensure you have the following installed:
 
 - **.NET 6 SDK**: Required to run the ASP.NET Core Web API.
 - **Node.js and npm**: Required to build the React frontend.
-- **MongoDB or SQL Server**: A database to store task data.
+- **MongoDB**: A database to store task data.
 
 ## Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/task-list-app.git
+git clone https://github.com/AdvaOren/ToDoList.git
 cd task-list-app
 ```
 
@@ -47,18 +47,18 @@ cd task-list-app
 1. **Navigate to the backend directory**:
 
     ```bash
-    cd TaskManagementApi
+    cd ToDoList
     ```
 
 2. **Restore NuGet packages**:
 
     ```bash
-    dotnet restore
+    dotnet restore <.csproj>
     ```
 
 3. **Configure the database**:
 
-    - Open `appsettings.json` and configure the connection strings for MongoDB or SQL Server.
+    - Open `appsettings.json` and configure the connection strings for MongoDB.
     - Example for MongoDB:
 
       ```json
@@ -69,40 +69,13 @@ cd task-list-app
       }
       ```
 
-### 3. Set Up the Frontend (React)
-
-1. **Navigate to the React directory**:
-
-    ```bash
-    cd ../task-management-ui
-    ```
-
-2. **Install the npm packages**:
-
-    ```bash
-    npm install
-    ```
-
-3. **Build the React app**:
-
-    ```bash
-    npm run build
-    ```
-
-4. **Copy the build output** to the ASP.NET Core project:
-
-    - Copy the contents of the `build` directory into the `wwwroot/ClientApp` directory inside the `TaskManagementApi` project.
-
-    ```bash
-    cp -r build/* ../TaskManagementApi/wwwroot/ClientApp/
-    ```
 
 ## Running the Application
 
 1. **Navigate to the backend directory**:
 
     ```bash
-    cd TaskManagementApi
+    cd ToDoList
     ```
 
 2. **Run the application**:
@@ -133,15 +106,3 @@ The application provides the following API endpoints:
 - **Create New Task**: Add new tasks using a form.
 - **Delete Task**: Remove tasks from the list.
 - **Search Functionality**: Search tasks by title or description.
-
-## Contributing
-
-Contributions are welcome! Please submit a pull request or open an issue to contribute to the project.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-This README provides a clear guide for setting up and running the Task List application, focusing on serving the React frontend and ASP.NET Core backend from a single server. If you have any additional details or custom configurations, feel free to adjust the README accordingly.
